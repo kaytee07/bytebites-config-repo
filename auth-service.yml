@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/authdb
+    username: auth_user
+    password: secret123
+
+logging:
+  level:
+    root: INFO
+    com.bytebites.auth: DEBUG
+

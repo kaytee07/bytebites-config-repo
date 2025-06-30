@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restaurantdb
+    username: restaurant_user
+    password: secret456
+
+logging:
+  level:
+    root: INFO
+    com.bytebites.restaurant: DEBUG
+
