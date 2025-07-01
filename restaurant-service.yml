@@ -3,12 +3,38 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/restaurantdb
+    url: jdbc:mysql://localhost:3306/restaurantdb
     username: restaurant_user
     password: secret456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  cloud:
+    discovery:
+      enabled: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: restaurant-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/oauth2/jwks
 
 logging:
   level:
     root: INFO
-    com.bytebites.restaurant: DEBUG
-
+    com.bytebites.restaurantservice: DEBUG
