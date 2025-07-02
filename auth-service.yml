@@ -1,24 +1,46 @@
+
+# src/main/resources/application.yml for Auth-Service
 server:
-  port: 8081
+  port: 8081 # Auth-Service runs on port 8081
 
 spring:
+  application:
+    name: auth-service
   datasource:
     url: jdbc:mysql://localhost:3306/authdb
+    driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: Hhdh573)&@/dg
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-  application:
-    name: auth-service
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-google-client-id
+            client-secret: your-google-client-secret
+            scope: openid,profile,email
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
 
 eureka:
   client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+jwt:
+  secret: c3ByaW5nYm9vdHNlY3VyaXR5and0a2V5c3ByaW5nYm9vdHNlY3VyaXR5and0a2V5c3ByaW5nYm9vdHNlY3VyaXR5and0a2V5
+
+
+
 
