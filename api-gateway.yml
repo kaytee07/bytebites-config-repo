@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: api-gateway # Define the application name for Eureka registration
   cloud:
     gateway:
       routes:
@@ -15,7 +17,14 @@ spring:
           predicates:
             - Path=/api/restaurant/**
 
+# Eureka Client Configuration - THIS IS WHAT WAS MISSING
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka # IMPORTANT: Make sure this URL matches your Eureka server's address
+    register-with-eureka: true # Tells the API Gateway to register itself with Eureka
+    fetch-registry: true     # Allows the API Gateway to fetch the service registry from Eureka
+
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
-
